@@ -42,7 +42,9 @@ public class Project
         this.format = format;
     }
 
-        // Getters
+        /**
+         * Getters
+         */
         public int getProjectId() {
             return project_id;
         }
@@ -99,7 +101,10 @@ public class Project
             return format;
         }
     
-        // Setters
+        /**
+         * Setters
+         */
+
         public void setProjectId(int project_id) {
             this.project_id = project_id;
         }
