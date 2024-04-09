@@ -4,15 +4,15 @@ public class Project
 {
 
     //class variables
-    int project_id;
+    String project_id;
     String project_name;
     String project_type;
-    LocalTime project_date;
+    String project_date;
     String project_location;
-    double project_cost;
-    double project_customer_cost;
+    String project_cost;
+    String project_customer_cost;
     String size_of_venue;
-    int project_duration;
+    String project_duration;
     String duration_units;
     String network;
     String play_wright;
@@ -23,29 +23,28 @@ public class Project
     /**
      * CLASS CONSTRUCTOR
      */
-    public Project(int project_id, String project_name, String project_type, LocalTime project_date, String project_location, double project_cost, double project_customer_cost, 
-                    String size_of_venue, int project_duration, String duration_units, String network, String play_wright, String genre, String format)
+    public Project()
     {
-        this.project_id = project_id;
-        this.project_name = project_name;
-        this.project_type = project_type;
-        this.project_date = project_date;
-        this.project_location = project_location;
-        this.project_cost = project_cost;
-        this.project_customer_cost = project_customer_cost;
-        this.size_of_venue = size_of_venue;
-        this.project_duration = project_duration;
-        this.duration_units = duration_units;
-        this.network = network;
-        this.play_wright = play_wright;
-        this.genre = genre;
-        this.format = format;
+        this.project_id = "";
+        this.project_name = "";
+        this.project_type = "";
+        this.project_date = "";
+        this.project_location = "";
+        this.project_cost = "";
+        this.project_customer_cost = "";
+        this.size_of_venue = "";
+        this.project_duration = "";
+        this.duration_units = "";
+        this.network = "";
+        this.play_wright = "";
+        this.genre = "";
+        this.format = "";
     }
 
         /**
          * Getters
          */
-        public int getProjectId() {
+        public String getProjectId() {
             return project_id;
         }
     
@@ -57,7 +56,7 @@ public class Project
             return project_type;
         }
     
-        public LocalTime getProjectDate() {
+        public String getProjectDate() {
             return project_date;
         }
     
@@ -65,11 +64,11 @@ public class Project
             return project_location;
         }
     
-        public double getProjectCost() {
+        public String getProjectCost() {
             return project_cost;
         }
     
-        public double getProjectCustomerCost() {
+        public String getProjectCustomerCost() {
             return project_customer_cost;
         }
     
@@ -77,7 +76,7 @@ public class Project
             return size_of_venue;
         }
     
-        public int getProjectDuration() {
+        public String getProjectDuration() {
             return project_duration;
         }
     
@@ -105,7 +104,7 @@ public class Project
          * Setters
          */
 
-        public void setProjectId(int project_id) {
+        public void setProjectId(String project_id) {
             this.project_id = project_id;
         }
     
@@ -117,7 +116,7 @@ public class Project
             this.project_type = project_type;
         }
     
-        public void setProjectDate(LocalTime project_date) {
+        public void setProjectDate(String project_date) {
             this.project_date = project_date;
         }
     
@@ -125,11 +124,11 @@ public class Project
             this.project_location = project_location;
         }
     
-        public void setProjectCost(double project_cost) {
+        public void setProjectCost(String project_cost) {
             this.project_cost = project_cost;
         }
     
-        public void setProjectCustomerCost(double project_customer_cost) {
+        public void setProjectCustomerCost(String project_customer_cost) {
             this.project_customer_cost = project_customer_cost;
         }
     
@@ -137,7 +136,7 @@ public class Project
             this.size_of_venue = size_of_venue;
         }
     
-        public void setProjectDuration(int project_duration) {
+        public void setProjectDuration(String project_duration) {
             this.project_duration = project_duration;
         }
     

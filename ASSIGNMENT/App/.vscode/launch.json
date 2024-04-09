@@ -15,8 +15,8 @@
             "name": "App",
             "request": "launch",
             "mainClass": "App",
-            "projectName": "ASSIGNMENT_aee99aab",
-            "args": "C:/Users/skye/documents/GitHub/CSCU9T4_Assignment_2/ASSIGNMENT/App/src/scotia_visual_productions_projects.csv"
+            "projectName": "App_960cac9d",
+            "args": ["C:/Users/skye/Documents/GitHub/CSCU9T4_Assignment_2/ASSIGNMENT/App/src/scotia_visual_productions_projects.csv"]
         }
     ]
 }
