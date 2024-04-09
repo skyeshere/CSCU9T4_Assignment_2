@@ -12,12 +12,13 @@ public class App {
     {
         if(args.length == 0 || args.length > 1)
         {
-            System.err.println("you have too many or no command line arguments, make sure you're only passing the directory to your csv file.");
+            System.err.println("you have either used too many or no command line arguments, make sure you're only passing the directory to the csv file.");
             System.exit(0);
         }
 
         ArrayList<Project> projects = parseCSV(args[0]);    
-        System.out.println("Profit = £" + profit(projects));
+        System.out.println("Scotia Visual Productions has produced [" + (projects.size()-1)+"] projects and has generated £" + profit(projects) + " in profit");
+        System.out.println(typeSearch(projects));
     }
 
     public static ArrayList<Project> parseCSV(String directory)
@@ -75,16 +76,35 @@ public class App {
         
         //start from index 1 as first row is column headers
         for (int i = 1; i < project_list.size(); i++)
-        {
-            if(project_list.get(i).getProjectCost() == "" || project_list.get(i).getProjectCustomerCost() == "")
-            {
-                System.err.println("the project stored at: " + i);
-            }else
-            {
-                profit = profit + ( Double.parseDouble(project_list.get(i).getProjectCustomerCost()) - Double.parseDouble(project_list.get(i).getProjectCost()));
-            }
-        }
-
+            profit = profit + ( Double.parseDouble(project_list.get(i).getProjectCustomerCost()) - Double.parseDouble(project_list.get(i).getProjectCost()));   
+        
         return String.format("%.2f", profit); //String.format("%.2f") formats the string so only 2 characters after the decimal point are shown
     }
+
+
+    /*
+     * FILTERS
+     */
+
+    public static ArrayList<Project> typeSearch(ArrayList<Project> projects)
+    {
+        //new list to hold filtered list
+        ArrayList<Project> filteredList = new ArrayList<>();
+        //input string for search
+        String inputString = "Music";
+
+        //for every project in projects list
+        for (Project project : projects) 
+            //if project has type of inputString, add it to filtered list
+            if(project.getProjectType().equals(inputString)) filteredList.add(project);
+        
+        //return filtered list
+        return filteredList;
+    }
+    
 }
+
+    
+
+
+    
