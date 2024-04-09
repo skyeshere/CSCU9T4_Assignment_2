@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import java.io.*;
 import com.opencsv.*;
 import com.opencsv.exceptions.CsvValidationException;
-import java.math.*;
 
 public class App {
     /**
@@ -16,7 +15,7 @@ public class App {
             System.err.println("you have too many or no command line arguments, make sure you're only passing the directory to your csv file.");
             System.exit(0);
         }
-        
+
         ArrayList<Project> projects = parseCSV(args[0]);    
         System.out.println("Profit = £" + profit(projects));
     }
