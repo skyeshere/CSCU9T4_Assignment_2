@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.io.*;
 import com.opencsv.*;
 import com.opencsv.exceptions.CsvValidationException;
+import java.math.*;
 
 public class App {
     /**
@@ -15,8 +16,9 @@ public class App {
             System.err.println("you have too many or no command line arguments, make sure you're only passing the directory to your csv file.");
             System.exit(0);
         }
+        
         ArrayList<Project> projects = parseCSV(args[0]);    
-        System.out.println(profit(projects));
+        System.out.println("Profit = £" + profit(projects));
     }
 
     public static ArrayList<Project> parseCSV(String directory)
@@ -68,7 +70,7 @@ public class App {
         return project_list;
     }
 
-    public static double profit(ArrayList<Project> project_list)
+    public static String profit(ArrayList<Project> project_list)
     {
         double profit = 0;
         
@@ -83,10 +85,7 @@ public class App {
                 profit = profit + ( Double.parseDouble(project_list.get(i).getProjectCustomerCost()) - Double.parseDouble(project_list.get(i).getProjectCost()));
             }
         }
-        
-        System.out.println(project_list.size());
-        System.err.println(project_list.get(0).getProjectCustomerCost());
 
-        return profit;
+        return String.format("%.2f", profit); //String.format("%.2f") formats the string so only 2 characters after the decimal point are shown
     }
 }
