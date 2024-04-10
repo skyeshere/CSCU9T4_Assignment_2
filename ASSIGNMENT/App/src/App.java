@@ -16,7 +16,7 @@ public class App {
      */
     public static void main(String[] args)
     {
-   
+        GUI yuh = new GUI("meow");
     }
 
     public static ArrayList<Project> parseCSV(String directory)
@@ -24,7 +24,7 @@ public class App {
         //create new ArrayList to hold project data
         ArrayList<Project> project_list = new ArrayList<Project>();
 
-        try 
+        try
         {
             //create new reader to read the csv file
             CSVReader reader = new CSVReader(new FileReader(directory));
@@ -57,8 +57,6 @@ public class App {
                 //add current object into ArrayList
                 project_list.add(proj);
             }
-            
-            System.out.println(project_list);
             reader.close();
         } 
         //catches exceptions that may occur above, i know its very messy
