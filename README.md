@@ -8,4 +8,7 @@ You'll find:
         - Projects.java
         - Scotia_Visual_Productions_Projects.csv
     - libraries / dependencys (App/lib)
+        - Dependencies include:
+            - opencsv (App/lib/opencsv-5.9.jar)
+            - commons-lang3 (commons-lang3.3.14.0.jar) this is required for opencsv to work
     - vsc launch.json (App/.vscode) This is so I can pass in command line arguments (you will need this)
