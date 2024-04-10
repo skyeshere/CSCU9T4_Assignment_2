@@ -139,13 +139,15 @@ public class App {
 
         for(int i = 1; i < projects.size(); i++)
         {
-            if(before)
+            if(before) // if before = true
             {
+                //bool class function for LocalDate to compare two dates, returns true if it is before
                 if(LocalDate.parse(projects.get(i).getProjectDate(), formatter).isBefore(date)) 
                     filteredList.add(projects.get(i));
             }
             else
-            {
+            {      
+                //returns true if it is after 
                 if(LocalDate.parse(projects.get(i).getProjectDate(), formatter).isAfter(date)) 
                     filteredList.add(projects.get(i));
             }
