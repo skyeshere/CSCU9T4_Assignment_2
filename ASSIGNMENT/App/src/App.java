@@ -1,10 +1,16 @@
 import java.util.ArrayList;
 import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import com.opencsv.*;
 import com.opencsv.exceptions.CsvValidationException;
 
 
 public class App {
+
+    //date formatter with date pattern
+    static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
     /**
      * 
      * @param args, args[0] = file directory to csv file
@@ -22,6 +28,7 @@ public class App {
         System.out.println(typeSearch(projects));
         System.out.println(locationSearch(projects));
         System.out.println(venueSizeSearch(projects));
+        System.out.println(dateFilter(LocalDate.parse("05/06/2023", formatter), true, projects));
     }
 
     public static ArrayList<Project> parseCSV(String directory)
@@ -123,6 +130,27 @@ public class App {
         String inputString = "Small";
         for(Project project : projects)
             if(project.getSizeOfVenue().equals(inputString)) filteredList.add(project);
+        return filteredList;
+    }
+
+    public static ArrayList<Project> dateFilter(LocalDate date, Boolean before, ArrayList<Project> projects)
+    {
+        ArrayList<Project> filteredList = new ArrayList<>();
+
+        for(int i = 1; i < projects.size(); i++)
+        {
+            if(before)
+            {
+                if(LocalDate.parse(projects.get(i).getProjectDate(), formatter).isBefore(date)) 
+                    filteredList.add(projects.get(i));
+            }
+            else
+            {
+                if(LocalDate.parse(projects.get(i).getProjectDate(), formatter).isAfter(date)) 
+                    filteredList.add(projects.get(i));
+            }
+        }
+
         return filteredList;
     }
 }
