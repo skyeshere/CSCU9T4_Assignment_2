@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 import com.opencsv.*;
 import com.opencsv.exceptions.CsvValidationException;
 
-
 public class App {
 
     //date formatter with date pattern
@@ -91,7 +90,6 @@ public class App {
         return String.format("%.2f", profit); //String.format("%.2f") formats the string so only 2 characters after the decimal point are shown
     }
 
-
     /*
      * FILTERS
      */
@@ -127,9 +125,12 @@ public class App {
     public static ArrayList<Project> venueSizeSearch(ArrayList<Project> projects)
     {
         ArrayList<Project> filteredList = new ArrayList<>();
+
         String inputString = "Small";
+
         for(Project project : projects)
             if(project.getSizeOfVenue().equals(inputString)) filteredList.add(project);
+            
         return filteredList;
     }
 
@@ -139,13 +140,13 @@ public class App {
 
         for(int i = 1; i < projects.size(); i++)
         {
-            if(before) // if before = true
+            if(before) // if before == true
             {
                 //bool class function for LocalDate to compare two dates, returns true if it is before
                 if(LocalDate.parse(projects.get(i).getProjectDate(), formatter).isBefore(date)) 
                     filteredList.add(projects.get(i));
             }
-            else
+            else // if before == false
             {      
                 //returns true if it is after 
                 if(LocalDate.parse(projects.get(i).getProjectDate(), formatter).isAfter(date)) 
