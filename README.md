@@ -6,6 +6,7 @@ You'll find:
     - source code (App/src)
         - App.java
         - Projects.java
+        - GUI.java
         - Scotia_Visual_Productions_Projects.csv
     - libraries / dependencys (App/lib)
         - Dependencies include:
