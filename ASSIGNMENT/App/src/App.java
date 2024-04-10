@@ -16,24 +16,13 @@ public class App {
      */
     public static void main(String[] args)
     {
-        if(args.length == 0 || args.length > 1)
-        {
-            System.err.println("you have either used too many or no command line arguments, make sure you're only passing the directory to the csv file.");
-            System.exit(0);
-        }
-
-        ArrayList<Project> projects = parseCSV(args[0]);    
-        System.out.println("Scotia Visual Productions has produced [" + (projects.size()-1)+"] projects and has generated £" + profit(projects) + " in profit");
-        System.out.println(typeSearch(projects));
-        System.out.println(locationSearch(projects));
-        System.out.println(venueSizeSearch(projects));
-        System.out.println(dateFilter(LocalDate.parse("05/06/2023", formatter), true, projects));
+   
     }
 
     public static ArrayList<Project> parseCSV(String directory)
     {
-        //create new arraylist to hold project data
-        ArrayList<Project> project_list = new ArrayList<>();
+        //create new ArrayList to hold project data
+        ArrayList<Project> project_list = new ArrayList<Project>();
 
         try 
         {
@@ -65,7 +54,7 @@ public class App {
                 proj.setGenre(record[12]);
                 proj.setFormat(record[13]);
 
-                //add current object into arraylist
+                //add current object into ArrayList
                 project_list.add(proj);
             }
             
@@ -130,7 +119,7 @@ public class App {
 
         for(Project project : projects)
             if(project.getSizeOfVenue().equals(inputString)) filteredList.add(project);
-            
+
         return filteredList;
     }
 
@@ -157,8 +146,3 @@ public class App {
         return filteredList;
     }
 }
-
-    
-
-
-    
