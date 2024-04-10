@@ -81,12 +81,10 @@ public class App {
      * FILTERS
      */
 
-    public static ArrayList<Project> typeSearch(ArrayList<Project> projects)
+    public static ArrayList<Project> typeSearch(ArrayList<Project> projects, String inputString)
     {
         //new list to hold filtered list
         ArrayList<Project> filteredList = new ArrayList<>();
-        //input string for search
-        String inputString = "Music";
 
         //for every project in projects list
         for (Project project : projects) 
@@ -97,11 +95,9 @@ public class App {
         return filteredList;
     }
 
-    public static ArrayList<Project> locationSearch(ArrayList<Project> projects)
+    public static ArrayList<Project> locationSearch(ArrayList<Project> projects, String inputString)
     {
         ArrayList<Project> filteredList = new ArrayList<>();
-
-        String inputString = "Stirling";
 
         for(Project project : projects)
             if (project.getProjectLocation().equals(inputString)) filteredList.add(project);
@@ -109,11 +105,9 @@ public class App {
         return filteredList;
     }
     
-    public static ArrayList<Project> venueSizeSearch(ArrayList<Project> projects)
+    public static ArrayList<Project> venueSizeSearch(ArrayList<Project> projects, String inputString)
     {
         ArrayList<Project> filteredList = new ArrayList<>();
-
-        String inputString = "Small";
 
         for(Project project : projects)
             if(project.getSizeOfVenue().equals(inputString)) filteredList.add(project);
