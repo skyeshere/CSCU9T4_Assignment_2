@@ -3,6 +3,7 @@ import java.io.*;
 import com.opencsv.*;
 import com.opencsv.exceptions.CsvValidationException;
 
+
 public class App {
     /**
      * 
@@ -19,6 +20,8 @@ public class App {
         ArrayList<Project> projects = parseCSV(args[0]);    
         System.out.println("Scotia Visual Productions has produced [" + (projects.size()-1)+"] projects and has generated £" + profit(projects) + " in profit");
         System.out.println(typeSearch(projects));
+        System.out.println(locationSearch(projects));
+        System.out.println(venueSizeSearch(projects));
     }
 
     public static ArrayList<Project> parseCSV(String directory)
@@ -35,7 +38,7 @@ public class App {
             String[] record = null;
 
             //loops until end of csv file
-            while((record = reader.readNext()) != null)
+            while((record = reader.readNext()) != null) //while record isn't null, record gets set to the next line every iteration
             {
                 //instantiate new Project object
                 Project proj = new Project();
@@ -72,7 +75,7 @@ public class App {
 
     public static String profit(ArrayList<Project> project_list)
     {
-        double profit = 0;
+        double profit = 0.00;
         
         //start from index 1 as first row is column headers
         for (int i = 1; i < project_list.size(); i++)
@@ -101,7 +104,27 @@ public class App {
         //return filtered list
         return filteredList;
     }
+
+    public static ArrayList<Project> locationSearch(ArrayList<Project> projects)
+    {
+        ArrayList<Project> filteredList = new ArrayList<>();
+
+        String inputString = "Stirling";
+
+        for(Project project : projects)
+            if (project.getProjectLocation().equals(inputString)) filteredList.add(project);
+
+        return filteredList;
+    }
     
+    public static ArrayList<Project> venueSizeSearch(ArrayList<Project> projects)
+    {
+        ArrayList<Project> filteredList = new ArrayList<>();
+        String inputString = "Small";
+        for(Project project : projects)
+            if(project.getSizeOfVenue().equals(inputString)) filteredList.add(project);
+        return filteredList;
+    }
 }
 
     

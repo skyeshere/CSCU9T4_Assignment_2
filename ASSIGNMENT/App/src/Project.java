@@ -1,5 +1,3 @@
-import java.time.LocalTime;
-
 public class Project 
 {
 
@@ -160,7 +158,6 @@ public class Project
             this.format = format;
         }
     
-    
     @Override 
     public String toString() {
         return "project details: \n" +
@@ -176,6 +173,6 @@ public class Project
                 "\tnetwork=" + network + "\n" +
                 "\tplay_wright=" + play_wright + "\n" +
                 "\tgenre=" + genre + "\n" +
-                "\tformat=" + format + "\n";
+                "\tformat=" + format + "\n\n";
     }
 }
