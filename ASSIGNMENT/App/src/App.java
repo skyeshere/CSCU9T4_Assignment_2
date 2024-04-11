@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Formatter;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -115,7 +116,7 @@ public class App {
         return filteredList;
     }
 
-    public static ArrayList<Project> dateFilter(LocalDate date, Boolean before, ArrayList<Project> projects)
+    public static ArrayList<Project> dateFilter(String date, Boolean before, ArrayList<Project> projects)
     {
         ArrayList<Project> filteredList = new ArrayList<>();
 
@@ -124,13 +125,13 @@ public class App {
             if(before) // if before == true
             {
                 //bool class function for LocalDate to compare two dates, returns true if it is before
-                if(LocalDate.parse(projects.get(i).getProjectDate(), formatter).isBefore(date)) 
+                if(LocalDate.parse(projects.get(i).getProjectDate(), formatter).isBefore(LocalDate.parse(date, formatter))) 
                     filteredList.add(projects.get(i));
             }
             else // if before == false
             {      
                 //returns true if it is after 
-                if(LocalDate.parse(projects.get(i).getProjectDate(), formatter).isAfter(date)) 
+                if(LocalDate.parse(projects.get(i).getProjectDate(), formatter).isAfter(LocalDate.parse(date, formatter))) 
                     filteredList.add(projects.get(i));
             }
         }

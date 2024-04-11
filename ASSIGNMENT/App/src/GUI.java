@@ -1,19 +1,21 @@
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.*;
 
 public class GUI extends JFrame
 {
     public ArrayList<Project> fullList = App.parseCSV("C:/Users/skye/Documents/GitHub/CSCU9T4_Assignment_2/ASSIGNMENT/App/src/scotia_visual_productions_projects.csv");
-    public String filters[] = {"","Type", "Location", "Venue", "Date"};
+    public String filters[] = {"","Type", "Location", "Venue", "Before Date", "After Date"};
 
     public String col[] = {"Project ID", "Project Name", "Project Type", "Project Date",
                             "Project Location", "Project Cost", "Project Cost To Customer",
                             "Size of Venue", "Project Duration", "Duration Units", "Network", 
                             "Play Wright", "Genre", "Format"};
 
+    //constructor used to load the first state of the program
     GUI(String title)
     {
         JButton b = new JButton("Load CSV");
@@ -32,6 +34,7 @@ public class GUI extends JFrame
         initWindow();
     }    
 
+    //initialise the JFrame window
     public void initWindow()
     {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -42,6 +45,7 @@ public class GUI extends JFrame
         this.setVisible(true);
     }
     
+    //initial state after csv is loaded / no filters used
     public void initialState()
     {
         JTable table = loadInitialTable();
@@ -71,13 +75,15 @@ public class GUI extends JFrame
             }
         });
     }
-
+    
+    //redraws the JFrame for when changes to the components are made
     public void reDraw()
     {
         repaint();
         revalidate();
     }
 
+    //use this state when filters are being used
     public void newState(String[][] data)
     {
         JTable table = loadTable(data);
@@ -106,6 +112,7 @@ public class GUI extends JFrame
 
     }
 
+    //logic for when submit button is pressed
     public void Press(String filter, String input)
     {
         ArrayList<Project> filteredList = new ArrayList<>();
@@ -126,19 +133,25 @@ public class GUI extends JFrame
             filteredList = App.venueSizeSearch(fullList, input);
             newState(pullData(filteredList));
             reDraw();
-        } else if(filter.equals("Date"))
+        } else if(filter.equals("Before Date"))
         {
-            filteredList = App.dateFilter(null, null, filteredList);
+            filteredList = App.dateFilter(input, true, fullList);
+            newState(pullData(filteredList));
+            reDraw();
+        } else if(filter.equals("After Date"))
+        {
+            filteredList = App.dateFilter(input, false, fullList);
             newState(pullData(filteredList));
             reDraw();
         }
-        else
+        else //case where no filters / incomplete filters are used, resort to full table
         {
             initialState();
             reDraw();
         }    
     }
 
+    //initalises the submit button
     public JButton submitButtonInit()
     {
         JButton b = new JButton("Search!");
@@ -146,6 +159,7 @@ public class GUI extends JFrame
         return b;
     }
 
+    //inialises the filter text input
     public JTextField searchBoxInit()
     {
         JTextField sb = new JTextField();
@@ -154,6 +168,7 @@ public class GUI extends JFrame
         return sb;
     }
 
+    //initalises the dropdown box for filters
     public JComboBox<String> filterBoxInit()
     {
         JComboBox<String> cb = new JComboBox<>(filters);
@@ -161,23 +176,27 @@ public class GUI extends JFrame
         return cb;
     }
 
+    //initialises a table component
     public JTable loadTable(String[][] data)
     {
         JTable t = new JTable(data, col);
         return t;
     }
 
+    //creates a table for the full list
     public JTable loadInitialTable()
     {
         JTable t = new JTable(loadFullList(), col);
         return t;
     }
 
+    //loads full list
     public String[][] loadFullList()
     {
             return pullData(fullList);
     }
 
+    //pulls data from arraylist into something the tables can use (an array of arrays)
     public String[][] pullData(ArrayList<Project> list)
     {
         String[][] data = new String[list.size()][14];
