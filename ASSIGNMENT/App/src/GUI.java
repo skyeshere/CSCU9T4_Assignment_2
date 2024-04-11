@@ -126,7 +126,12 @@ public class GUI extends JFrame
             filteredList = App.venueSizeSearch(fullList, input);
             newState(pullData(filteredList));
             reDraw();
-        } 
+        } else if(filter.equals("Date"))
+        {
+            filteredList = App.dateFilter(null, null, filteredList);
+            newState(pullData(filteredList));
+            reDraw();
+        }
         else
         {
             initialState();
