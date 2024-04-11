@@ -1,15 +1,17 @@
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.*;
 
 public class GUI extends JFrame
 {
+    //temp path for csv file
     public ArrayList<Project> fullList = App.parseCSV("C:/Users/skye/Documents/GitHub/CSCU9T4_Assignment_2/ASSIGNMENT/App/src/scotia_visual_productions_projects.csv");
+    //filter options for filter search
     public String filters[] = {"","Type", "Location", "Venue", "Before Date", "After Date"};
 
+    //Column headers for table
     public String col[] = {"Project ID", "Project Name", "Project Type", "Project Date",
                             "Project Location", "Project Cost", "Project Cost To Customer",
                             "Size of Venue", "Project Duration", "Duration Units", "Network", 
@@ -56,9 +58,37 @@ public class GUI extends JFrame
 
         JComboBox<String> cb = filterBoxInit();
         add(cb);
-        
+
         JTextField filterSearch = searchBoxInit();
         add(filterSearch);
+
+        JTextPane tp = loadToolTip();
+        add(tp);
+
+        cb.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+                if(((String)cb.getSelectedItem()).equals("Before Date") || (((String)cb.getSelectedItem()).equals("After Date")))
+                {
+                    tp.setText("Date format MUST be: 'dd/MM/yyyy' \n e.g. 11/08/2004 (11th August 2004)");
+                } 
+                else if((((String)cb.getSelectedItem()).equals("Type")))
+                {
+                    tp.setText("will return an empty table if the input ISN'T exactly equal to a type\n e.g. 'Music' or 'Film'");
+                }
+                else if(((String)cb.getSelectedItem()).equals("Location"))
+                {
+                    tp.setText("will return an empty table if input ISN'T exactly equal to a location\n e.g. 'Los Angeles' or 'Glasgow'");
+                }
+                else if((((String)cb.getSelectedItem()).equals("Venue")))
+                {
+                    tp.setText("will return an empty table if input ISN'T exactly equal to a venue size\n e.g. 'Small' or 'Medium' or 'Large'");
+                } else 
+                {
+                    tp.setText("no filter will return the full list");
+                }
+            }
+        });
 
         JButton filterSubmit = submitButtonInit();
         add(filterSubmit);
@@ -70,6 +100,7 @@ public class GUI extends JFrame
                 remove(filterSearch);
                 remove(filterSubmit);
                 remove(scrollPane); 
+                remove(tp);
                 
                 Press((String)cb.getSelectedItem(), filterSearch.getText());
             }
@@ -94,10 +125,38 @@ public class GUI extends JFrame
         JComboBox<String> cb = filterBoxInit();
         JTextField sb = searchBoxInit();
         JButton b = submitButtonInit();
+        JTextPane tp = loadToolTip();
 
         add(cb);
         add(sb);
         add(b);
+        add(tp);
+
+        cb.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+                if(((String)cb.getSelectedItem()).equals("Before Date") || (((String)cb.getSelectedItem()).equals("After Date")))
+                {
+                    tp.setText("Date format MUST be: 'dd/MM/yyyy' \n e.g. 11/08/2004 (11th August 2004)");
+                } 
+                else if((((String)cb.getSelectedItem()).equals("Type")))
+                {
+                    tp.setText("will return an empty table if the input ISN'T exactly equal to a type\n e.g. 'Music' or 'Film'");
+                }
+                else if(((String)cb.getSelectedItem()).equals("Location"))
+                {
+                    tp.setText("will return an empty table if input ISN'T exactly equal to a location\n e.g. 'Los Angeles' or 'Glasgow'");
+                }
+                else if((((String)cb.getSelectedItem()).equals("Venue")))
+                {
+                    tp.setText("will return an empty table if input ISN'T exactly equal to a venue size\n e.g. 'Small' or 'Medium' or 'Large'");
+                } else 
+                {
+                    tp.setText("no filter will return the full list");
+                }
+            }
+        });
+
         b.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
             {
@@ -105,6 +164,7 @@ public class GUI extends JFrame
                 remove(sb);
                 remove(b);
                 remove(scrollPane);
+                remove(tp);
                 
                 Press((String)cb.getSelectedItem(), sb.getText());
             }
@@ -150,7 +210,7 @@ public class GUI extends JFrame
             reDraw();
         }    
     }
-
+    
     //initalises the submit button
     public JButton submitButtonInit()
     {
@@ -174,6 +234,16 @@ public class GUI extends JFrame
         JComboBox<String> cb = new JComboBox<>(filters);
         cb.setPreferredSize(new Dimension(100,50));
         return cb;
+    }
+
+    //initialise tooltip text
+    public JTextPane loadToolTip()
+    {
+        JTextPane tp = new JTextPane();
+        tp.setEditable(false);
+        tp.setText("no filter will return the full list");
+
+        return tp;
     }
 
     //initialises a table component
@@ -228,4 +298,3 @@ public class GUI extends JFrame
         return data;
     }
 }
-
