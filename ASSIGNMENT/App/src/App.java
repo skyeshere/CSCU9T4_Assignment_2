@@ -23,7 +23,6 @@ public class App {
     {
         //create new ArrayList to hold project data
         ArrayList<Project> project_list = new ArrayList<Project>();
-
         try
         {
             //create new reader to read the csv file
@@ -66,15 +65,41 @@ public class App {
         return project_list;
     }
 
+    public static double totalCost(ArrayList<Project> project_list)
+    {  
+        double total = 0;
+        for(int i = 1; i < project_list.size(); i++)
+        {
+            total = total + Double.parseDouble(project_list.get(i).getProjectCost());
+        }
+        return total;
+    }
+
+    public static int totalLocations(ArrayList<Project> project_list)
+    {
+        ArrayList<String> seen = new ArrayList<>();
+        for(int i = 1; i < project_list.size(); i++)
+        {
+            if(!seen.contains(project_list.get(i).getProjectLocation())) seen.add(project_list.get(i).getProjectLocation());
+        }
+
+        return seen.size();
+    }
+
     public static String profit(ArrayList<Project> project_list)
     {
         double profit = 0.00;
         
         //start from index 1 as first row is column headers
         for (int i = 1; i < project_list.size(); i++)
-            profit = profit + ( Double.parseDouble(project_list.get(i).getProjectCustomerCost()) - Double.parseDouble(project_list.get(i).getProjectCost()));   
+            profit = profit + ( Double.parseDouble(project_list.get(i).getProjectCustomerCost()) -
+             Double.parseDouble(project_list.get(i).getProjectCost()));   
         
-        return String.format("%.2f", profit); //String.format("%.2f") formats the string so only 2 characters after the decimal point are shown
+        return "Scotia Visual Productions has generated £" + profit + " in profit!" + 
+                "Other statistics below: \n" + 
+                "\t- Total Different Locations: " + totalLocations(project_list) + 
+                "\n\t- Total Cost Spent: " + String.format("%.2f", totalCost(project_list)) + 
+                "\n\t- Total Profit: £" + String.format("%.2f",profit);
     }
 
     /*

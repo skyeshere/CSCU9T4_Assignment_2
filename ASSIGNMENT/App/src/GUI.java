@@ -7,7 +7,7 @@ import javax.swing.*;
 public class GUI extends JFrame
 {
     //temp path for csv file
-    public ArrayList<Project> fullList = App.parseCSV("C:/Users/skye/Documents/GitHub/CSCU9T4_Assignment_2/ASSIGNMENT/App/src/scotia_visual_productions_projects.csv");
+    public ArrayList<Project> fullList;
     //filter options for filter search
     public String filters[] = {"","Type", "Location", "Venue", "Before Date", "After Date"};
 
@@ -62,8 +62,14 @@ public class GUI extends JFrame
         JTextField filterSearch = searchBoxInit();
         add(filterSearch);
 
+        JButton filterSubmit = submitButtonInit();
+        add(filterSubmit);
+
         JTextPane tp = loadToolTip();
         add(tp);
+
+        JButton summaryButton = SummaryButton();
+        add(summaryButton);
 
         cb.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
@@ -89,9 +95,7 @@ public class GUI extends JFrame
                 }
             }
         });
-
-        JButton filterSubmit = submitButtonInit();
-        add(filterSubmit);
+        
         filterSubmit.addActionListener(new ActionListener() 
         {
             public void actionPerformed(ActionEvent e) 
@@ -103,6 +107,15 @@ public class GUI extends JFrame
                 remove(tp);
                 
                 Press((String)cb.getSelectedItem(), filterSearch.getText());
+            }
+        });
+
+        summaryButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+                remove(summaryButton);
+                add(SummaryText());
+                reDraw();
             }
         });
     }
@@ -169,7 +182,25 @@ public class GUI extends JFrame
                 Press((String)cb.getSelectedItem(), sb.getText());
             }
         });
+    }
 
+    //Summary
+    public JTextArea SummaryText()
+    {
+        String message = App.profit(fullList);
+        JTextArea ta = new JTextArea(message);
+        ta.setEditable(false);
+        ta.setPreferredSize(new Dimension(1600, 250));
+        ta.setFont(getFont().deriveFont(15f));
+
+        return ta;
+    }
+
+    public JButton SummaryButton()
+    {
+        JButton b = new JButton("Show summary!");
+        b.setPreferredSize(new Dimension(100,50));
+        return b;
     }
 
     //logic for when submit button is pressed
