@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Formatter;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -135,7 +134,6 @@ public class App {
                     filteredList.add(projects.get(i));
             }
         }
-
         return filteredList;
     }
 }
