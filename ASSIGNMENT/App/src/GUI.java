@@ -6,7 +6,7 @@ import javax.swing.*;
 
 public class GUI extends JFrame
 {
-    //temp path for csv file
+    //arraylist which will hold the whole list csv data
     public ArrayList<Project> fullList;
     //filter options for filter search
     public String filters[] = {"","Type", "Location", "Venue", "Before Date", "After Date"};

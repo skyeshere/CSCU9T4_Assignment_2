@@ -72,6 +72,7 @@ public class App {
     /*
      * SUMMARY FUNCTIONS
      */
+    
     public static double totalCost(ArrayList<Project> project_list)
     {  
         double total = 0;
@@ -119,10 +120,11 @@ public class App {
         ArrayList<Project> filteredList = new ArrayList<>();
 
         //for every project in projects list
-        for (Project project : projects) 
-            //if project has type of inputString, add it to filtered list
-            if(project.getProjectType().equals(inputString)) filteredList.add(project);
-        
+        for(int i = 1; i < projects.size(); i++)
+        {
+            if (projects.get(i).getProjectType().toLowerCase().equals(inputString.toLowerCase()))
+                filteredList.add(projects.get(i));
+        }
         //return filtered list
         return filteredList;
     }
@@ -130,10 +132,11 @@ public class App {
     public static ArrayList<Project> locationSearch(ArrayList<Project> projects, String inputString)
     {
         ArrayList<Project> filteredList = new ArrayList<>();
-
-        for(Project project : projects)
-            if (project.getProjectLocation().equals(inputString)) filteredList.add(project);
-
+        for(int i = 1; i < projects.size(); i++)
+        {
+            if(projects.get(i).getProjectLocation().toLowerCase().equals(inputString.toLowerCase()));
+                filteredList.add(projects.get(i));
+        }
         return filteredList;
     }
     
@@ -141,8 +144,11 @@ public class App {
     {
         ArrayList<Project> filteredList = new ArrayList<>();
 
-        for(Project project : projects)
-            if(project.getSizeOfVenue().toLowerCase().equals(inputString.toLowerCase())) filteredList.add(project);
+        for(int i = 1; i < projects.size(); i++)
+        {
+            if(projects.get(i).getSizeOfVenue().toLowerCase().equals(inputString.toLowerCase()))
+                filteredList.add(projects.get(i));
+        }
 
         return filteredList;
     }
