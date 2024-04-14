@@ -18,7 +18,7 @@ public class GUI extends JFrame
                             "Play Wright", "Genre", "Format"};
 
     //constructor used to load the first state of the program
-    GUI(String title)
+    GUI(String title, String directory)
     {
         JButton b = new JButton("Load CSV");
         b.setPreferredSize(new Dimension(100,100));
@@ -26,10 +26,11 @@ public class GUI extends JFrame
         b.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
             {
-                remove(b);
-                initialState();
-                revalidate();
+                fullList = App.parseCSV(directory);
+                getContentPane().removeAll();
+                initialState();                
                 repaint();
+                revalidate();
             }
         });
         
@@ -62,14 +63,14 @@ public class GUI extends JFrame
         JTextField filterSearch = searchBoxInit();
         add(filterSearch);
 
-        JButton filterSubmit = submitButtonInit();
-        add(filterSubmit);
+        JButton fb = submitButtonInit();
+        add(fb);
 
         JTextPane tp = loadToolTip();
         add(tp);
 
-        JButton summaryButton = SummaryButton();
-        add(summaryButton);
+        JButton sumb = SummaryButton();
+        add(sumb);
 
         cb.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
@@ -96,24 +97,20 @@ public class GUI extends JFrame
             }
         });
         
-        filterSubmit.addActionListener(new ActionListener() 
+        fb.addActionListener(new ActionListener() 
         {
             public void actionPerformed(ActionEvent e) 
             {
-                remove(cb);
-                remove(filterSearch);
-                remove(filterSubmit);
-                remove(scrollPane); 
-                remove(tp);
+                getContentPane().removeAll();
                 
                 Press((String)cb.getSelectedItem(), filterSearch.getText());
             }
         });
 
-        summaryButton.addActionListener(new ActionListener() {
+        sumb.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
             {
-                remove(summaryButton);
+                remove(sumb);
                 add(SummaryText());
                 reDraw();
             }
@@ -136,50 +133,57 @@ public class GUI extends JFrame
         add(scrollPane);
 
         JComboBox<String> cb = filterBoxInit();
-        JTextField sb = searchBoxInit();
-        JButton b = submitButtonInit();
-        JTextPane tp = loadToolTip();
+        JTextField searchb = searchBoxInit();
+        JButton fb = submitButtonInit();
+        JTextPane tt = loadToolTip();
+        JButton sumb = SummaryButton();
 
         add(cb);
-        add(sb);
-        add(b);
-        add(tp);
+        add(searchb);
+        add(fb);
+        add(tt);
+        add(sumb);
 
         cb.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
             {
                 if(((String)cb.getSelectedItem()).equals("Before Date") || (((String)cb.getSelectedItem()).equals("After Date")))
                 {
-                    tp.setText("Date format MUST be: 'dd/MM/yyyy' \n e.g. 11/08/2004 (11th August 2004)");
+                    tt.setText("Date format MUST be: 'dd/MM/yyyy' \n e.g. 11/08/2004 (11th August 2004)");
                 } 
                 else if((((String)cb.getSelectedItem()).equals("Type")))
                 {
-                    tp.setText("will return an empty table if the input ISN'T exactly equal to a type\n e.g. 'Music' or 'Film'");
+                    tt.setText("will return an empty table if the input ISN'T exactly equal to a type\n e.g. 'Music' or 'Film'");
                 }
                 else if(((String)cb.getSelectedItem()).equals("Location"))
                 {
-                    tp.setText("will return an empty table if input ISN'T exactly equal to a location\n e.g. 'Los Angeles' or 'Glasgow'");
+                    tt.setText("will return an empty table if input ISN'T exactly equal to a location\n e.g. 'Los Angeles' or 'Glasgow'");
                 }
                 else if((((String)cb.getSelectedItem()).equals("Venue")))
                 {
-                    tp.setText("will return an empty table if input ISN'T exactly equal to a venue size\n e.g. 'Small' or 'Medium' or 'Large'");
+                    tt.setText("will return an empty table if input ISN'T exactly equal to a venue size\n e.g. 'Small' or 'Medium' or 'Large'");
                 } else 
                 {
-                    tp.setText("no filter will return the full list");
+                    tt.setText("no filter will return the full list");
                 }
             }
         });
 
-        b.addActionListener(new ActionListener() {
+        fb.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
             {
-                remove(cb);
-                remove(sb);
-                remove(b);
-                remove(scrollPane);
-                remove(tp);
+                getContentPane().removeAll();
                 
-                Press((String)cb.getSelectedItem(), sb.getText());
+                Press((String)cb.getSelectedItem(), searchb.getText());
+            }
+        });
+
+        sumb.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+                remove(sumb);
+                add(SummaryText());
+                reDraw();
             }
         });
     }
@@ -253,10 +257,10 @@ public class GUI extends JFrame
     //inialises the filter text input
     public JTextField searchBoxInit()
     {
-        JTextField sb = new JTextField();
-        sb.isEditable();
-        sb.setPreferredSize(new Dimension(300,50));
-        return sb;
+        JTextField searchb = new JTextField();
+        searchb.isEditable();
+        searchb.setPreferredSize(new Dimension(300,50));
+        return searchb;
     }
 
     //initalises the dropdown box for filters

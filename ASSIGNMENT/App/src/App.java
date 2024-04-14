@@ -16,9 +16,13 @@ public class App {
      */
     public static void main(String[] args)
     {
-        GUI yuh = new GUI("meow");
+        //init gui
+        GUI yuh = new GUI("meow", args[0]);
     }
 
+    /*
+     * CSV Parse method
+     */
     public static ArrayList<Project> parseCSV(String directory)
     {
         //create new ArrayList to hold project data
@@ -65,6 +69,9 @@ public class App {
         return project_list;
     }
 
+    /*
+     * SUMMARY FUNCTIONS
+     */
     public static double totalCost(ArrayList<Project> project_list)
     {  
         double total = 0;
@@ -135,7 +142,7 @@ public class App {
         ArrayList<Project> filteredList = new ArrayList<>();
 
         for(Project project : projects)
-            if(project.getSizeOfVenue().equals(inputString)) filteredList.add(project);
+            if(project.getSizeOfVenue().toLowerCase().equals(inputString.toLowerCase())) filteredList.add(project);
 
         return filteredList;
     }
