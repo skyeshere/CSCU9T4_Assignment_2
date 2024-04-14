@@ -17,7 +17,7 @@ public class App {
     public static void main(String[] args)
     {
         //init gui
-        GUI yuh = new GUI("meow", args[0]);
+        new GUI("meow", args[0]);
     }
 
     /*

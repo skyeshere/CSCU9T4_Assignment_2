@@ -29,8 +29,7 @@ public class GUI extends JFrame
                 fullList = App.parseCSV(directory);
                 getContentPane().removeAll();
                 initialState();                
-                repaint();
-                revalidate();
+                reDraw();
             }
         });
         
@@ -72,6 +71,9 @@ public class GUI extends JFrame
         JButton sumb = SummaryButton();
         add(sumb);
 
+        JButton addButton = new JButton("add record");
+        add(addButton);
+
         cb.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
             {
@@ -107,11 +109,21 @@ public class GUI extends JFrame
             }
         });
 
-        sumb.addActionListener(new ActionListener() {
+        sumb.addActionListener(new ActionListener() 
+        {
             public void actionPerformed(ActionEvent e)
             {
                 remove(sumb);
                 add(SummaryText());
+                reDraw();
+            }
+        });
+
+        addButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+                getContentPane().removeAll();
+                inputRecordState();
                 reDraw();
             }
         });
@@ -169,7 +181,8 @@ public class GUI extends JFrame
             }
         });
 
-        fb.addActionListener(new ActionListener() {
+        fb.addActionListener(new ActionListener() 
+        {
             public void actionPerformed(ActionEvent e)
             {
                 getContentPane().removeAll();
@@ -178,7 +191,8 @@ public class GUI extends JFrame
             }
         });
 
-        sumb.addActionListener(new ActionListener() {
+        sumb.addActionListener(new ActionListener() 
+        {
             public void actionPerformed(ActionEvent e)
             {
                 remove(sumb);
@@ -188,6 +202,96 @@ public class GUI extends JFrame
         });
     }
 
+    public void inputRecordState()
+    {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+
+        JButton subb = new JButton("insert record");
+        JTextField id_in  = inputField();
+        id_in.setText("Project ID");;
+        JTextField name_in = inputField();
+        name_in.setText("Project Name");
+        JTextField type_in = inputField();
+        type_in.setText("Project Type");
+        JTextField date_in = inputField();
+        date_in.setText("Date");
+        JTextField location_in = inputField();
+        location_in.setText("Project Location");
+        JTextField  cost_in = inputField();
+        cost_in.setText("Project Cost");
+        JTextField customer_cost_in = inputField();
+        customer_cost_in.setText("Customer Cost");
+        JTextField venue_in = inputField();
+        venue_in.setText("Venue Size");
+        JTextField duration_in = inputField();
+        duration_in.setText("Project Duration (number)");
+        JTextField duration_units_in = inputField();
+        duration_units_in.setText("Duration Units (Hours/Days)");
+        JTextField network_in = inputField();
+        network_in.setText("Network");
+        JTextField play_wright_in = inputField();
+        play_wright_in.setText("Play Wright");
+        JTextField genre_in = inputField();
+        genre_in.setText("Genre");
+        JTextField format_in = inputField();
+        format_in.setText("Format");
+
+        JTextArea tt = new JTextArea();
+        tt.setText("NOTE: PROGRAM WILL ASSUME THAT ANY INPUT IS VALID");
+        tt.setEditable(false);
+
+        panel.add(id_in);
+        panel.add(name_in);
+        panel.add(type_in);
+        panel.add(date_in);
+        panel.add(location_in);
+        panel.add(cost_in);
+        panel.add(customer_cost_in);
+        panel.add(venue_in);
+        panel.add(duration_in);
+        panel.add(duration_units_in);
+        panel.add(network_in);
+        panel.add(play_wright_in);
+        panel.add(genre_in);
+        panel.add(format_in);
+        panel.add(subb);
+        panel.add(tt);
+        add(panel);
+        subb.addActionListener(new ActionListener() 
+        {
+            Project p = new Project();
+
+            public void actionPerformed(ActionEvent e)
+            {
+                getContentPane().removeAll();
+                p.setProjectId(id_in.getText());
+                p.setProjectName(name_in.getText());
+                p.setProjectType(type_in.getText());
+                p.setProjectDate(date_in.getText());
+                p.setProjectLocation(location_in.getText());
+                p.setProjectCost(cost_in.getText());
+                p.setProjectCustomerCost(customer_cost_in.getText());
+                p.setSizeOfVenue(venue_in.getText());
+                p.setProjectDuration(duration_in.getText());
+                p.setDurationUnits(duration_units_in.getText());
+                p.setNetwork(network_in.getText());
+                p.setPlayWright(play_wright_in.getText());
+                p.setGenre(genre_in.getText());
+                p.setFormat(format_in.getText());
+                fullList.add(p);
+                initialState();
+                reDraw();
+            }
+        });
+    }
+
+    public JTextField inputField()
+    {
+        JTextField tf = new JTextField();
+        tf.setEditable(true);
+        return tf;
+    }
     //Summary
     public JTextArea SummaryText()
     {
@@ -239,7 +343,7 @@ public class GUI extends JFrame
             newState(pullData(filteredList));
             reDraw();
         }
-        else //case where no filters / incomplete filters are used, resort to full table
+        else //case where null filter is selected
         {
             initialState();
             reDraw();
