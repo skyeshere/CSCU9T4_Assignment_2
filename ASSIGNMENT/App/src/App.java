@@ -103,11 +103,14 @@ public class App {
             profit = profit + ( Double.parseDouble(project_list.get(i).getProjectCustomerCost()) -
              Double.parseDouble(project_list.get(i).getProjectCost()));   
         
-        return "Scotia Visual Productions has generated £" + profit + " in profit!" + 
+        return "Scotia Visual Productions has generated £" + String.format("%2.f", profit) + " in profit!" + 
                 "Other statistics below: \n" + 
                 "\t- Total Different Locations: " + totalLocations(project_list) + 
                 "\n\t- Total Cost Spent: " + String.format("%.2f", totalCost(project_list)) + 
-                "\n\t- Total Profit: £" + String.format("%.2f",profit);
+                "\n\t- Number of Film Projects: " + typeSearch(project_list, "film").size() + 
+                "\n\t- Number of Music Projects: " + typeSearch(project_list, "music").size() + 
+                "\n\t- Number of TV Projects: " + typeSearch(project_list, "tv").size() + 
+                "\n\t- Number of Theatre Projects: " + typeSearch(project_list, "theatre").size();
     }
 
     /*
